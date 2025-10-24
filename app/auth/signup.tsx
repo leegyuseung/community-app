@@ -3,7 +3,7 @@ import InputField from "@/components/InputField";
 import { colors } from "@/constants";
 import { StyleSheet, View } from "react-native";
 
-export default function LoginScreen() {
+export default function SignupScreen() {
   return (
     <>
       <View style={styles.container}>
@@ -17,8 +17,13 @@ export default function LoginScreen() {
           placeholderTextColor={colors.GRAY_500}
           placeholder="비밀번호을 입력해주세요."
         />
+        <InputField
+          label="비밀번호 확인"
+          placeholderTextColor={colors.GRAY_500}
+          placeholder="비밀번호을 입력해주세요."
+        />
       </View>
-      <FixedBottomCTA label="로그인하기" onPress={() => {}} />
+      <FixedBottomCTA label="회원가입하기" onPress={() => {}} />
     </>
   );
 }
