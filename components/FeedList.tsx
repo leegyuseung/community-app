@@ -1,46 +1,47 @@
 import { colors } from "@/constants";
-import React from "react";
+import useGetInfinitePosts from "@/hooks/queries/useGetInfinitePosts";
+import { useScrollToTop } from "@react-navigation/native";
+import React, { useRef, useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
 import FeedItem from "./FeedItem";
 
-const dummyData = [
-  {
-    id: 1,
-    userId: 1,
-    title: "더미 제목입니다.",
-    description: "더미 내용입니다.",
-    createdAt: "2025-10-25",
-    author: { id: 1, nickname: "닉네임", imageUri: "" },
-    imageUris: [],
-    likes: [],
-    hasVote: false,
-    voteCount: 1,
-    commentCount: 1,
-    viewCount: 1,
-  },
-  {
-    id: 2,
-    userId: 1,
-    title: "더미 제목입니다.",
-    description: "더미 내용입니다.",
-    createdAt: "2025-10-25",
-    author: { id: 1, nickname: "닉네임", imageUri: "" },
-    imageUris: [],
-    likes: [],
-    hasVote: false,
-    voteCount: 1,
-    commentCount: 1,
-    viewCount: 1,
-  },
-];
-
 function FeedList() {
+  const {
+    data: posts,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    refetch,
+  } = useGetInfinitePosts();
+
+  const [isRefreshing, setIsRefreshing] = useState(false);
+  const ref = useRef<FlatList | null>(null);
+  useScrollToTop(ref);
+
+  const handleEndReached = () => {
+    // 다음페이지가 있고 페칭중이 아니라면 다음페이지 페칭해주기
+    if (hasNextPage && !isFetchingNextPage) {
+      fetchNextPage();
+    }
+  };
+
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    await refetch();
+    setIsRefreshing(false);
+  };
+
   return (
     <FlatList
-      data={dummyData}
+      ref={ref}
+      data={posts?.pages.flat()}
       renderItem={({ item }) => <FeedItem post={item} />}
       keyExtractor={(item) => String(item.id)}
       contentContainerStyle={styles.contentContainer}
+      onEndReached={handleEndReached} // 마지막 도달하면 실행
+      onEndReachedThreshold={0.5} // 절반정도 지났을때 데이터 불러오기
+      refreshing={isRefreshing}
+      onRefresh={handleRefresh}
     />
   );
 }
