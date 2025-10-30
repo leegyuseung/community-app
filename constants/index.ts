@@ -17,6 +17,7 @@ const queryKeys = {
   GET_POSTS: "getPosts",
   AUTH: "auth",
   GET_ME: "getMe",
+  GET_POST: "getPost",
 };
 
 export { colors, queryKeys };
