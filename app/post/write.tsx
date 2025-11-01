@@ -1,5 +1,7 @@
 import CustomButton from "@/components/CustomButton";
 import DescriptionInput from "@/components/DescriptionInput";
+import ImagePreviewList from "@/components/ImagePreviewList";
+import PostWriteFooter from "@/components/PostWriteFooter";
 import TitleInput from "@/components/TitleInput";
 import useCreatePost from "@/hooks/queries/useCreatePost";
 import { ImageUri } from "@/types";
@@ -43,16 +45,18 @@ export default function PostWriteScreen() {
   });
 
   return (
-    <KeyboardAvoidingView
-      style={styles.container}
-      behavior="height"
-      keyboardVerticalOffset={100}
-    >
-      <FormProvider {...postForm}>
+    <FormProvider {...postForm}>
+      <KeyboardAvoidingView
+        style={styles.container}
+        behavior="height"
+        keyboardVerticalOffset={100}
+      >
         <TitleInput />
         <DescriptionInput />
-      </FormProvider>
-    </KeyboardAvoidingView>
+        <ImagePreviewList imageUris={postForm.watch().imageUris} />
+      </KeyboardAvoidingView>
+      <PostWriteFooter />
+    </FormProvider>
   );
 }
 
