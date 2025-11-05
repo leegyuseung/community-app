@@ -1,6 +1,7 @@
 import CustomButton from "@/components/CustomButton";
 import DescriptionInput from "@/components/DescriptionInput";
 import TitleInput from "@/components/TitleInput";
+import VoteAttached from "@/components/VoteAttached";
 import useGetPost from "@/hooks/queries/useGetPost";
 import useUpdatePost from "@/hooks/queries/useUpdatePost";
 import { ImageUri } from "@/types";
@@ -12,6 +13,7 @@ import { KeyboardAvoidingView, StyleSheet } from "react-native";
 type FormValues = {
   title: string;
   description: string;
+  isVoteAttached: boolean;
   imageUris: ImageUri[];
 };
 
@@ -28,6 +30,7 @@ export default function PostUpdateScreen() {
       postForm.reset({
         title: post.title,
         description: post.description,
+        isVoteAttached: post.hasVote,
         imageUris: post.imageUris,
       });
     }
@@ -67,6 +70,7 @@ export default function PostUpdateScreen() {
       <FormProvider {...postForm}>
         <TitleInput />
         <DescriptionInput />
+        <VoteAttached />
       </FormProvider>
     </KeyboardAvoidingView>
   );
