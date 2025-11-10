@@ -33,4 +33,9 @@ async function getMe(): Promise<Profile> {
   return data;
 }
 
-export { getMe, postLogin, postSignup };
+async function getUserProfile(id: number): Promise<Profile> {
+  const { data } = await axiosInstance.get(`/auth/${id}`);
+  return data;
+}
+
+export { getMe, getUserProfile, postLogin, postSignup };
