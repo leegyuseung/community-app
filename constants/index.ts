@@ -27,6 +27,7 @@ const queryKeys = {
   GET_USER_PROFILE: "getUserProfile",
   GET_PROFILE: "getProfile",
   AVATAR: "avatar",
+  GET_SEARCH_POSTS: "getSearchPosts",
 };
 
 export { colors, queryKeys };

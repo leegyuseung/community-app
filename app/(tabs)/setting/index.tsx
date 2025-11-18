@@ -1,6 +1,9 @@
 import AuthRoute from "@/components/AuthRoute";
+import ListItem from "@/components/ListItem";
+import { colors } from "@/constants";
 import useAuth from "@/hooks/queries/useAuth";
-import { Text } from "react-native";
+import { Entypo, Octicons } from "@expo/vector-icons";
+import { StyleSheet, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function SettingScreen() {
@@ -8,8 +11,25 @@ export default function SettingScreen() {
   return (
     <AuthRoute>
       <SafeAreaView>
-        <Text onPress={logout}>로그아웃</Text>
+        <View style={styles.space} />
+        <ListItem
+          title="언어 설정"
+          onPress={logout}
+          icon={<Entypo name="language" size={16} color={colors.BLACK} />}
+        />
+        <View style={styles.space} />
+        <ListItem
+          title="로그아웃"
+          onPress={logout}
+          icon={<Octicons name="sign-out" size={16} color={colors.BLACK} />}
+        />
       </SafeAreaView>
     </AuthRoute>
   );
 }
+
+const styles = StyleSheet.create({
+  space: {
+    height: 30,
+  },
+});
