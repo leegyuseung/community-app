@@ -47,6 +47,7 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     paddingLeft: 0,
     color: colors.BLACK,
+    fontFamily: "Pretendard",
   },
 });
 
